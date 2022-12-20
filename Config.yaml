@@ -1,0 +1,221 @@
+# 请使用最新版Clash
+# 将proxy-providers里面链接中的“你的订阅链接”全部替换即可
+mixed-port: 7890
+allow-lan: true
+bind-address: '*'
+mode: rule
+log-level: silent
+ipv6: true
+external-controller: 127.0.0.1:9090
+
+proxy-providers:
+  #全部节点
+  All:
+    type: http
+    url: "https://********"
+    # 可以使用任意类型的链接替换上面文字，多个链接使用英文符号的竖杠|隔开一起写上即可；也可以将Clash订阅链接替换掉整个引号""内的链接
+    interval: 3600
+    path: ./all.yaml
+    # filter: US|HK|TY|OS|AU|(?i)All
+    health-check:
+      enable: true
+      interval: 120
+      url: http://www.gstatic.com/generate_204
+ #香港节点     
+  HK:
+    type: file
+    path: ./all.yaml
+    filter: HK|(?i)Hong
+    health-check:
+      enable: true
+      interval: 120
+      url: http://www.gstatic.com/generate_204
+ #日本节点
+  JP:
+    type: file
+    path: ./all.yaml
+    filter: TY|OS|(?i)Japan
+    health-check:
+      enable: true
+      interval: 120
+      url: http://www.gstatic.com/generate_204
+#美国节点
+  US:
+    type: file
+    path: ./all.yaml
+    filter: US|(?i)States|American
+    health-check:
+      enable: true
+      interval: 120
+      url: http://www.gstatic.com/generate_204
+      
+dns:
+  enable: true
+  ipv6: true
+  listen: 0.0.0.0:53
+  default-nameserver:
+    - 119.29.29.29
+    - 223.5.5.5
+    - 114.114.114.114
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  fake-ip-filter:
+    - '*.lan'
+    - localhost.ptlogin2.qq.com
+    - '+.srv.nintendo.net'
+    - '+.stun.playstation.net'
+    - '+.msftconnecttest.com'
+    - '+.msftncsi.com'
+    - '+.xboxlive.com'
+    - 'msftconnecttest.com'
+    - 'xbox.*.microsoft.com'
+    - '*.battlenet.com.cn'
+    - '*.battlenet.com'
+    - '*.blzstatic.cn'
+    - '*.battle.net'
+  nameserver:
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
+    - https://dns.google/dns-query
+    
+proxies:
+
+            
+proxy-groups:
+
+  - name: 分区选择
+    type: select
+    proxies:
+      - 手动切换
+      - 自动选择
+      - 美国节点
+      - 香港节点
+      - 日本节点
+      - DIRECT
+
+
+  - name: 手动切换
+    type: select
+    use:
+      - All
+
+  - name: 自动选择
+    type: url-test
+    use: 
+       - All
+    url: "http://www.gstatic.com/generate_204"
+    interval: 300
+
+  - name: 美国节点
+    type: url-test
+    use: 
+       - US
+    url: "http://www.gstatic.com/generate_204"
+    interval: 300
+
+  - name: 香港节点
+    type: url-test
+    use:
+      - HK
+    url: "http://www.gstatic.com/generate_204"
+    interval: 300
+
+  - name: 日本节点
+    type: url-test
+    use:
+      - JP
+    url: "http://www.gstatic.com/generate_204"
+    interval: 300
+
+  - name: 国外网站
+    type: select
+    proxies:
+      - DIRECT
+      - 手动切换
+      - 分区选择
+
+
+  - name: 微软服务
+    type: select
+    proxies:
+      - DIRECT
+      - 手动切换
+      - 分区选择
+
+  - name: 国内网站
+    type: select
+    proxies:
+      - DIRECT
+      - 手动切换
+      - 分区选择
+
+  - name: 漏网之鱼
+    type: select
+    proxies:
+      - DIRECT
+      - 手动切换
+      - 分区选择
+
+  - name: AdBlock
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+      - 分区选择
+
+rule-providers:
+
+  Direct:
+    type: http
+    behavior: classical
+    url: "https://ghproxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Direct/Direct.yaml"
+    path: ./ruleset/direct.yaml
+    interval: 86400
+
+  adblock:
+    type: http
+    behavior: classical
+    url: "https://ghproxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Advertising/Advertising_Classical.yaml"
+    path: ./ruleset/Advertising_Classical.yaml
+    interval: 86400
+        
+  Microsoft:
+    type: http
+    behavior: classical
+    url: "https://ghproxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.yaml"
+    path: ./ruleset/Microsoft.yaml
+    interval: 86400
+
+  China:
+    type: http
+    behavior: classical
+    url: "https://ghproxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/China/China.yaml"
+    path: ./ruleset/China.yaml
+    interval: 86400
+
+  Global_Classical:
+    type: http
+    behavior: classical
+    url: "https://ghproxy.com/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Global/Global_Classical.yaml"
+    path: ./ruleset/Global_Classical.yaml
+    interval: 86400
+
+
+
+rules:
+  - RULE-SET,Direct,DIRECT
+  - RULE-SET,adblock,AdBlock
+  - RULE-SET,Microsoft,微软服务
+  - RULE-SET,Global_Classical,国外网站
+  - RULE-SET,China,国内网站
+  - IP-CIDR,192.168.0.0/16,DIRECT
+  - IP-CIDR,10.0.0.0/8,DIRECT
+  - IP-CIDR,172.16.0.0/12,DIRECT
+  - IP-CIDR,127.0.0.0/8,DIRECT
+  - IP-CIDR,100.64.0.0/10,DIRECT
+  - IP-CIDR,224.0.0.0/4,DIRECT
+  - IP-CIDR,fe80::/10,DIRECT
+  - IP-CIDR,119.28.28.28/32,DIRECT
+  - IP-CIDR,182.254.116.0/24,DIRECT
+  - GEOIP,CN,国内网站
+  - MATCH,漏网之鱼
