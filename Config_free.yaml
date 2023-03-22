@@ -21,33 +21,7 @@ proxy-providers:
       enable: true
       interval: 120
       url: http://www.gstatic.com/generate_204
- #香港节点     
-  HK:
-    type: file
-    path: ./all.yaml
-    filter: HK|(?i)Hong
-    health-check:
-      enable: true
-      interval: 120
-      url: http://www.gstatic.com/generate_204
- #日本节点
-  JP:
-    type: file
-    path: ./all.yaml
-    filter: TY|OS|(?i)Japan
-    health-check:
-      enable: true
-      interval: 120
-      url: http://www.gstatic.com/generate_204
-#美国节点
-  US:
-    type: file
-    path: ./all.yaml
-    filter: US|(?i)States|American
-    health-check:
-      enable: true
-      interval: 120
-      url: http://www.gstatic.com/generate_204
+ 
       
 dns:
   enable: true
@@ -88,9 +62,6 @@ proxy-groups:
     proxies:
       - 手动切换
       - 自动选择
-      - 美国节点
-      - 香港节点
-      - 日本节点
       - DIRECT
 
 
@@ -106,26 +77,8 @@ proxy-groups:
     url: "http://www.gstatic.com/generate_204"
     interval: 300
 
-  - name: 美国节点
-    type: url-test
-    use: 
-       - US
-    url: "http://www.gstatic.com/generate_204"
-    interval: 300
+ 
 
-  - name: 香港节点
-    type: url-test
-    use:
-      - HK
-    url: "http://www.gstatic.com/generate_204"
-    interval: 300
-
-  - name: 日本节点
-    type: url-test
-    use:
-      - JP
-    url: "http://www.gstatic.com/generate_204"
-    interval: 300
 
   - name: 国外网站
     type: select
