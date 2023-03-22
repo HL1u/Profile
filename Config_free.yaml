@@ -15,7 +15,7 @@ proxy-providers:
     url: "https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg"
     # 可使用任意类型的链接替换上面文字，多个链接使用英文符号的竖杠|隔开一起写上即可；也可以将Clash订阅链接替换掉整个引号""内的链接
     interval: 3600
-    path: ./all0.yml
+    path: ./all0.yaml
     # filter: US|HK|TY|OS|AU|(?i)All
     health-check:
       enable: true
@@ -85,7 +85,7 @@ proxy-groups:
     proxies:
       - DIRECT
       - 手动切换
-      - 分区选择
+      - 自动选择
 
 
   - name: 微软服务
@@ -93,28 +93,29 @@ proxy-groups:
     proxies:
       - DIRECT
       - 手动切换
-      - 分区选择
+      - 自动选择
 
   - name: 国内网站
     type: select
     proxies:
       - DIRECT
       - 手动切换
-      - 分区选择
+      - 自动选择
 
   - name: 漏网之鱼
     type: select
     proxies:
       - DIRECT
       - 手动切换
-      - 分区选择
+      - 自动选择
 
   - name: AdBlock
     type: select
     proxies:
       - REJECT
       - DIRECT
-      - 分区选择
+      - 手动切换
+      - 自动选择
 
 rule-providers:
 
