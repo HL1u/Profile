@@ -12,10 +12,10 @@ proxy-providers:
   #全部节点
   All:
     type: http
-    url: "https://api.v1.mk/sub?target=clash&url=https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg&list=true&udp=true"
+    url: "https://api.v1.mk/sub?target=clash&url=你的订阅链接&list=true&udp=true"
     # 可以使用任意类型的链接替换上面文字，多个链接使用英文符号的竖杠|隔开一起写上即可；也可以将Clash订阅链接替换掉整个引号""内的链接
     interval: 3600
-    path: ./all.yaml
+    path: ./all_Shadow.yaml
     health-check:
       enable: true
       interval: 600
@@ -23,7 +23,7 @@ proxy-providers:
   #香港节点     
   HK:
     type: file
-    path: ./all.yaml
+    path: ./all_Shadow.yaml
     filter: 港|HK|(?i)Hong
     health-check:
       enable: true
@@ -32,8 +32,8 @@ proxy-providers:
  #日本节点
   JP:
     type: file
-    path: ./all.yaml
-    filter: 日|东京|JP|(?i)Japan
+    path: ./all_Shadow.yaml
+    filter: 日|东京|TY|JP|(?i)Japan
     health-check:
       enable: true
       interval: 120
