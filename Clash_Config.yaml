@@ -1,13 +1,9 @@
 # ==UserScript==
-# @ConfigName        墨鱼自用Clash配置文件
-# @Author            @ddgksf2013
-# @TgChannel         𝐡𝐭𝐭𝐩𝐬://𝐭.𝐦𝐞/𝐝𝐝𝐠𝐤𝐬𝐟𝟐𝟎𝟐𝟏
-# @WechatID          公众号墨鱼手记
-# @Feedback          💡请通过邮件反馈问题[其它方式一概无视]：𝐝𝐝𝐠𝐤𝐬𝐟𝟐𝟎𝟏𝟑@𝟏𝟔𝟑.𝐜𝐨𝐦 💡
-# @UpdateTime        2023/04/20 21:50 UTC/GMT +8
+# @ConfigName        自用Clash配置
+# @Author            @HLiu
+# @UpdateTime        2023/04/21
 # @Function          支持手动选择、自动测速、广告屏蔽、兜底分流、按国家分组节点等等   
 # @ClashDownload     https://github.com/Fndroid/clash_for_windows_pkg/releases
-# @Thanks            @blackmatrix7, @Fndroid, @Anti
 # @Attention         请使用最新版ClashforWindows
 # @ConfigVersion     1.0.3
 # ==/UserScript==      
@@ -55,19 +51,16 @@ dns:
     geoip-code: CN
     ipcidr:
       - 240.0.0.0/4
-#锚点
 pr:
-  &a3
+  &a2
   type: select
   proxies:
-    - 🚀 自动选择
-    - 🚀 手动切换
-    - 🇭🇰 香港节点
-    - 🇯🇵 日本节点
-    - 🇺🇲 美国节点
-    - 🇨🇳 台湾节点
-    - 🇸🇬 狮城节点
     - DIRECT
+    - 🇺🇲 美国节点
+    - 🇯🇵 日本节点
+    - 🇭🇰 香港节点
+    - 🚀 手动切换
+    - 🚀 自动选择
 p:
   &a1
   type: http
@@ -77,7 +70,7 @@ p:
     url: http://www.gstatic.com/generate_204
     interval: 1800
 auto:
-  &a4
+  &a3
   type: url-test
   lazy: true
   url: http://www.gstatic.com/generate_204
@@ -85,7 +78,7 @@ auto:
   use:
     - Subscribe
 use:
-  &a2
+  &a4
   type: select
   use:
     - Subscribe
@@ -107,63 +100,44 @@ i:
 proxy-providers:
   Subscribe:
     <<: *a1
-    url: https://sub.xeton.dev/sub?target=clash&url=请手动填入你的订阅[多链接用|分割]&list=true&udp=false 
+    url: https://sub.xeton.dev/sub?target=clash&url=https://s.trojanflare.com/clashx/7551b9d6-0380-4a9d-a616-52d5c2700b57&list=true&udp=false
     path: ./proxy_providers/tmp.yaml
-
-
 proxies: null
 proxy-groups:
-#分流分组
-  - name: 🚀 手动切换
-    <<: *a2
   - name: 🌏 全球加速
+    <<: *a2
+  - name: 🚀 自动选择
     <<: *a3
-  - name: 🍎 苹果服务
+  - name: 🚀 手动切换
+    <<: *a4
+  - name: 🇺🇲 美国节点
     <<: *a3
-  - name: 📺 哔哩哔哩
-    type: select
-    proxies:
-      - DIRECT
-      - 🇭🇰 香港节点
-      - 🇨🇳 台湾节点
+    filter: 美|US|(?i)States|American
+  - name: 🇯🇵 日本节点
+    <<: *a3
+    filter: 日|东京|JP|(?i)Japan
+  - name: 🇭🇰 香港节点
+    <<: *a3
+    filter: 港|HK|(?i)Hong
+  - name: 📺 微软服务
+    <<: *a2
   - name: 🎬 国际媒体
-    <<: *a3
+    <<: *a2
   - name: 🤖 OpenAi
     type: select
     proxies:
       - 🇺🇲 美国节点
   - name: 🌌 谷歌服务
-    <<: *a3
+    <<: *a2
   - name: 📟 电报消息
-    <<: *a3
-  - name: 🐦 推特服务
-    <<: *a3
-  - name: 🎮 游戏平台
-    <<: *a3
+    <<: *a2
+  - name: 🐟 兜底分流
+    <<: *a2
   - name: 🆎 AdBlock
     type: select
     proxies:
       - REJECT
-  - name: 🐟 兜底分流
-    <<: *a3
-#节点分组
-  - name: 🚀 自动选择
-    <<: *a4
-  - name: 🇭🇰 香港节点
-    <<: *a4
-    filter: 港|HK|(?i)Hong
-  - name: 🇯🇵 日本节点
-    <<: *a4
-    filter: 日|东京|JP|(?i)Japan
-  - name: 🇨🇳 台湾节点
-    <<: *a4
-    filter: 台|湾|TW|(?i)Taiwan
-  - name: 🇺🇲 美国节点
-    <<: *a4
-    filter: 美|US|(?i)States|American
-  - name: 🇸🇬 狮城节点
-    <<: *a4
-    filter: 新|坡|SG|(?i)Singapore
+    _index: 11
 rule-providers:
   Direct:
     <<: *a5
@@ -185,10 +159,10 @@ rule-providers:
     <<: *a6
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GlobalMedia/GlobalMedia_Classical.yaml
     path: ./ruleset/GlobalMedia.yaml
-  Apple:
+  Microsoft:
     <<: *a6
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Apple/Apple_Classical.yaml
-    path: ./ruleset/Apple.yaml
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Microsoft/Microsoft.yaml
+    path: ./ruleset/Microsoft.yaml
   Github:
     <<: *a6
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GitHub/GitHub.yaml
@@ -205,18 +179,6 @@ rule-providers:
     <<: *a6
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/OpenAI/OpenAI.yaml
     path: ./ruleset/OpenAi.yaml
-  Twitter:
-    <<: *a6
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Twitter/Twitter.yaml
-    path: ./ruleset/Twitter.yaml
-  BiliBili:
-    <<: *a6
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/BiliBili/BiliBili.yaml
-    path: ./ruleset/BiliBili.yaml
-  Game:
-    <<: *a6
-    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Game/Game.yaml
-    path: ./ruleset/Game.yaml
   ChinaIP:
     <<: *a7
     url: https://cdn.jsdelivr.net/gh/soffchen/GeoIP2-CN@release/clash-rule-provider.yml
@@ -226,19 +188,13 @@ rule-providers:
     url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/ProxyLite/ProxyLite.yaml
     path: ./ruleset/ProxyLite.yaml
 rules:
-
   - RULE-SET,Direct,DIRECT
   - RULE-SET,Lan,DIRECT
   - RULE-SET,Download,DIRECT
   - RULE-SET,Ad,🆎 AdBlock
-  - RULE-SET,GlobalMedia,🎬 国际媒体
-  - RULE-SET,Apple,🍎 苹果服务
+  - RULE-SET,Microsoft,📺 微软服务
   - RULE-SET,Github,🌏 全球加速
   - RULE-SET,Google,🌌 谷歌服务
-  - RULE-SET,Telegram,📟 电报消息
-  - RULE-SET,Twitter,🌏 全球加速
-  - RULE-SET,BiliBili,📺 哔哩哔哩
-  - RULE-SET,Game,🎮 游戏平台
   - RULE-SET,ProxyLite,🌏 全球加速
   - RULE-SET,ChinaIP,DIRECT
   - GEOIP,CN,DIRECT
