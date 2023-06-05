@@ -1,1 +1,1 @@
-# QuanX.conf
+# QuanX.conf & Clash Conf
