@@ -72,8 +72,7 @@ proxy-groups:
   - {name: 手动切换, <<: *a2}
   - {name: 自动选择, <<: *a4}
 
-  
- # 分流Policy 
+   # 分流Policy 
 rules:
   - DOMAIN-SUFFIX,googleapis.cn,Proxy
   - DOMAIN,safebrowsing.urlsec.qq.com,DIRECT
