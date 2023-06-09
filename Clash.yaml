@@ -68,7 +68,7 @@ proxy-providers:
 proxies: null
 proxy-groups:
 #分流分组
-  - {name: 全球加速, <<: *a3}
+  - {name: Proxy, <<: *a3}
   - {name: 手动切换, <<: *a2}
   - {name: 自动选择, <<: *a4}
 
