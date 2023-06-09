@@ -62,7 +62,7 @@ proxy-providers:
   Subscribe:
     <<: *a1
     url: https://sub.xeton.dev/sub?target=clash&url=https://raw.githubusercontent.com/Jsnzkpg/Jsnzkpg/Jsnzkpg/Jsnzkpg&list=true&udp=false 
-    path: ./proxy_providers/Free.yaml
+    path: ./Free.yaml
 
 
 proxies: null
