@@ -73,7 +73,7 @@ proxy-groups:
 #分流分组
   - {name: 手动切换, <<: *a2}
   - {name: 全球加速, <<: *a3}
-  - {name: OpenAi,   type: select, proxies: [🇺🇲 美国节点]}
+  - {name: OpenAi,   type: select, proxies: [美国节点]}
   - {name: 国际媒体, <<: *a3}
   - {name: 微软服务, <<: *a3}
   - {name: 谷歌服务, <<: *a3}
