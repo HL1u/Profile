@@ -1,11 +1,11 @@
 #==========================================
 # @ConfigName        Clash Config
 # @Author            @HL
-# @UpdateTime        2023/08/5 16:00 UTC/GMT +8
+# @UpdateTime        2023/08/20
 # @Function          支持手动选择、自动测速、广告屏蔽、兜底分流、按国家分组节点、多机场订阅等等   
 # @ClashDownload     https://github.com/Fndroid/clash_for_windows_pkg/releases
 # @Attention         𝐏𝐥𝐞𝐚𝐬𝐞 𝐮𝐬𝐞 𝐭𝐡𝐞 𝐥𝐚𝐭𝐞𝐬𝐭 𝐯𝐞𝐫𝐬𝐢𝐨𝐧 𝐨𝐟 𝐂𝐥𝐚𝐬𝐡𝐟𝐨𝐫𝐖𝐢𝐧𝐝𝐨𝐰𝐬
-# @ConfigVersion     1.0.19
+# @ConfigVersion     1.0.20
 #==========================================
 
 port: 7890           # HTTP 代理端口
@@ -54,7 +54,7 @@ dns:
 #========= 建立锚点 =========#
 
 # 策略组引用
-pr:   &a3 {type: select,   proxies: [♻️ 自动选择, 🚀 手动切换, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇺🇲 美国节点, 🇨🇳 台湾节点, DIRECT] }
+pr:   &a3 {type: select,   proxies: [自动选择, 手动切换, 香港节点, 日本节点, 美国节点, 台湾节点, DIRECT] }
 p:    &a1 {type: http,     interval: 86400,  health-check: {enable: true, url: http://www.gstatic.com/generate_204, interval: 1800} }
 auto: &a4 {type: url-test, lazy: true,  url: http://www.gstatic.com/generate_204, interval: 900, use: [Subscribe] }
 use:  &a2 {type: select,   use: [Subscribe] }
@@ -65,7 +65,7 @@ i:    &a7 {type: http,     behavior: ipcidr,    interval: 86400}
 proxy-providers:
   Subscribe:
     <<: *a1
-    url: https://sub.sharecentre.online/sub#delreg=.*&rename=@tg-ddgksf2021-+@num-$index7, tag=🐟临时使用, update-interval=3600, opt-parser=true, enabled=true
+    url: https://s.trojanflare.com/clashx/d8a0c725-2380-4300-9319-c6b1e1d6af9c
     # URL后面填写格式1[单一订阅]: 直接填写你的机场Clash订阅[推荐此种方式，避免订阅泄露]
     # URL后面填写格式2[多个订阅]：https://api.nexconvert.com/sub?target=clash&url=请手动填入你的订阅(多机场订阅用|分割即可)&emoji=true&list=true&new_name=true&udp=false
     path: ./proxy_providers/tmp.yaml
@@ -73,25 +73,22 @@ proxy-providers:
 proxies: null
 proxy-groups:
 #分流分组
-  - {name: 🚀 手动切换, <<: *a2}
-  - {name: 🌏 全球加速, <<: *a3}
-  - {name: 🍎 苹果服务, <<: *a3}
-  - {name: 📺 哔哩哔哩, type: select, proxies: [DIRECT, 🇭🇰 香港节点, 🇨🇳 台湾节点]}
-  - {name: 🤖 OpenAi,   type: select, proxies: [🇺🇲 美国节点]}
-  - {name: 🎬 国际媒体, <<: *a3}
-  - {name: 🌌 谷歌服务, <<: *a3}
-  - {name: 📟 电报消息, <<: *a3}
-  - {name: 🐦 推特服务, <<: *a3}
-  - {name: 🎮 游戏平台, <<: *a3}
-  - {name: 🆎 AdBlock, type: select, proxies: [REJECT]}
-  - {name: 🐟 兜底分流, <<: *a3}
+  - {name: 手动切换, <<: *a2}
+  - {name: 全球加速, <<: *a3}
+  - {name: 苹果服务, <<: *a3}
+  - {name: OpenAi,   type: select, proxies: [🇺🇲 美国节点]}
+  - {name: 国际媒体, <<: *a3}
+  - {name: 谷歌服务, <<: *a3}
+  - {name: 电报消息, <<: *a3}
+  - {name: AdBlock, type: select, proxies: [REJECT]}
+  - {name: Final, <<: *a3}
   
 #节点分组
-  - {name: ♻️ 自动选择, <<: *a4}
-  - {name: 🇭🇰 香港节点, <<: *a4, filter: "港|HK|(?i)Hong"           }             # a4更改为a2，即为手动选择
-  - {name: 🇯🇵 日本节点, <<:  *a4, filter: "日|东京|JP|(?i)Japan"     }             # a4更改为a2，即为手动选择     
-  - {name: 🇨🇳 台湾节点, <<: *a4, filter: "台|湾|TW|(?i)Taiwan"      }             # a4更改为a2，即为手动选择
-  - {name: 🇺🇲 美国节点, <<: *a4, filter: "美|US|(?i)States|American"}             # a4更改为a2，即为手动选择
+  - {name: 自动选择, <<: *a4}
+  - {name: 香港节点, <<: *a4, filter: "港|HK|(?i)Hong"           }             # a4更改为a2，即为手动选择
+  - {name: 日本节点, <<:  *a4, filter: "日|东京|JP|(?i)Japan"     }             # a4更改为a2，即为手动选择     
+  - {name: 台湾节点, <<: *a4, filter: "台|湾|TW|(?i)Taiwan"      }             # a4更改为a2，即为手动选择
+  - {name: 美国节点, <<: *a4, filter: "美|US|(?i)States|American"}             # a4更改为a2，即为手动选择
 
 # 分流规则 
 rule-providers:
@@ -100,15 +97,12 @@ rule-providers:
   Download:    {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Download/Download.yaml,                  path: ./ruleset/Download.yaml     }
   Ad:          {<<: *a5, url: https://anti-ad.net/clash.yaml,                                                                                     path: ./ruleset/anti-ad-clash.yaml}
   OpenAi:      {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/OpenAI/OpenAI.yaml,                      path: ./ruleset/OpenAi.yaml       }
-  BiliBili:    {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/BiliBili/BiliBili.yaml,                  path: ./ruleset/BiliBili.yaml     }
   GlobalMedia: {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GlobalMedia/GlobalMedia_Classical.yaml,  path: ./ruleset/GlobalMedia.yaml  }
   Apple:       {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Apple/Apple_Classical.yaml,              path: ./ruleset/Apple.yaml        }
   Github:      {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GitHub/GitHub.yaml,                      path: ./ruleset/Github.yaml       }
   Microsoft:   {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Microsoft/Microsoft.yaml,                path: ./ruleset/Microsoft.yaml    }
   Google:      {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Google/Google.yaml,                      path: ./ruleset/Google.yaml       }
   Telegram:    {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Telegram/Telegram.yaml,                  path: ./ruleset/Telegram.yaml     }
-  Twitter:     {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Twitter/Twitter.yaml,                    path: ./ruleset/Twitter.yaml      }
-  Game:        {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Game/Game.yaml,                          path: ./ruleset/Game.yaml         }
   ChinaIP:     {<<: *a7, url: https://cdn.jsdelivr.net/gh/soffchen/GeoIP2-CN@release/clash-rule-provider.yml,                                     path: ./ruleset/ChinaIP.yaml      }
   ProxyLite:   {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/ProxyLite/ProxyLite.yaml,                path: ./ruleset/ProxyLite.yaml    }
   
@@ -117,21 +111,18 @@ rules:
   - RULE-SET,Direct,DIRECT
   - RULE-SET,Lan,DIRECT
   - RULE-SET,Download,DIRECT
-  - RULE-SET,Ad,🆎 AdBlock
-  - RULE-SET,OpenAi,🤖 OpenAi
-  - RULE-SET,BiliBili,📺 哔哩哔哩
-  - RULE-SET,GlobalMedia,🎬 国际媒体
-  - RULE-SET,Apple,🍎 苹果服务
-  - RULE-SET,Github,🌏 全球加速
-  - RULE-SET,Microsoft, 🌏 全球加速
-  - RULE-SET,Google,🌌 谷歌服务
-  - RULE-SET,Telegram,📟 电报消息
-  - RULE-SET,Twitter,🌏 全球加速
-  - RULE-SET,Game,🎮 游戏平台
-  - RULE-SET,ProxyLite,🌏 全球加速
+  - RULE-SET,Microsoft,DIRECT
+  - RULE-SET,Ad,AdBlock
+  - RULE-SET,OpenAi,OpenAi
+  - RULE-SET,GlobalMedia,国际媒体
+  - RULE-SET,Apple,苹果服务
+  - RULE-SET,Github,全球加速
+  - RULE-SET,Google,谷歌服务
+  - RULE-SET,Telegram,电报消息
+  - RULE-SET,ProxyLite,全球加速
   - RULE-SET,ChinaIP,DIRECT
   - GEOIP,CN,DIRECT
-  - MATCH,🐟 兜底分流
+  - MATCH,Final
 
 
 # TUN模式是通过在操作系统上安装一个虚拟网卡来实现的，它可以接管所有的网络流量，并将流量转发至Clash，然后由Clash发出请求
