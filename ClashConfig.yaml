@@ -75,7 +75,6 @@ proxy-groups:
 #分流分组
   - {name: 手动切换, <<: *a2}
   - {name: 全球加速, <<: *a3}
-  - {name: 苹果服务, <<: *a3}
   - {name: OpenAi,   type: select, proxies: [美国节点]}
   - {name: 国际媒体, <<: *a3}
   - {name: 谷歌服务, <<: *a3}
@@ -98,7 +97,6 @@ rule-providers:
   Ad:          {<<: *a5, url: https://anti-ad.net/clash.yaml,                                                                                     path: ./ruleset/anti-ad-clash.yaml}
   OpenAi:      {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/OpenAI/OpenAI.yaml,                      path: ./ruleset/OpenAi.yaml       }
   GlobalMedia: {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GlobalMedia/GlobalMedia_Classical.yaml,  path: ./ruleset/GlobalMedia.yaml  }
-  Apple:       {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Apple/Apple_Classical.yaml,              path: ./ruleset/Apple.yaml        }
   Github:      {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GitHub/GitHub.yaml,                      path: ./ruleset/Github.yaml       }
   Microsoft:   {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Microsoft/Microsoft.yaml,                path: ./ruleset/Microsoft.yaml    }
   Google:      {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Google/Google.yaml,                      path: ./ruleset/Google.yaml       }
@@ -115,7 +113,6 @@ rules:
   - RULE-SET,Ad,AdBlock
   - RULE-SET,OpenAi,OpenAi
   - RULE-SET,GlobalMedia,国际媒体
-  - RULE-SET,Apple,苹果服务
   - RULE-SET,Github,全球加速
   - RULE-SET,Google,谷歌服务
   - RULE-SET,Telegram,电报消息
