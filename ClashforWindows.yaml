@@ -1,7 +1,7 @@
 #==========================================
-# @ConfigName        ClashforWindows Config
-# @Author            @HL
-# @UpdateTime        2023/11/02
+# @ConfigName        Clash Config
+# @Author            @Tsingtao
+# @UpdateTime        2023/11/19
 # @Function          支持手动选择、自动测速、广告屏蔽、兜底分流、按国家分组节点、多机场订阅等等   
 # @ClashDownload     https://github.com/Fndroid/clash_for_windows_pkg/releases
 # @Attention         𝐏𝐥𝐞𝐚𝐬𝐞 𝐮𝐬𝐞 𝐭𝐡𝐞 𝐥𝐚𝐭𝐞𝐬𝐭 𝐯𝐞𝐫𝐬𝐢𝐨𝐧 𝐨𝐟 𝐂𝐥𝐚𝐬𝐡𝐟𝐨𝐫𝐖𝐢𝐧𝐝𝐨𝐰𝐬
@@ -66,8 +66,7 @@ proxy-providers:
   Subscribe:
     <<: *a1
     url: https://t.me/ddgksf2021.yaml
-    # URL后面填写格式1[单一订阅]: 直接填写你的机场Clash订阅[推荐此种方式，避免订阅泄露]
-    # URL后面填写格式2[多个订阅]：https://api.nexconvert.com/sub?target=clash&url=请手动填入你的订阅(多机场订阅用|分割即可)&emoji=true&list=true&new_name=true&udp=false
+    # URL后面填写格式
     path: ./proxy_providers/tmp.yaml
     
 proxies: null
@@ -75,7 +74,6 @@ proxy-groups:
 #分流分组
   - {name: 手动切换, <<: *a2}
   - {name: 全球加速, <<: *a3}
-  - {name: 苹果服务, <<: *a3}
   - {name: OpenAi,   type: select, proxies: [美国节点]}
   - {name: 国际媒体, <<: *a3}
   - {name: 谷歌服务, <<: *a3}
@@ -99,6 +97,7 @@ rule-providers:
   Ad:          {<<: *a5, url: https://anti-ad.net/clash.yaml,                                                                                     path: ./ruleset/anti-ad-clash.yaml}
   OpenAi:      {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/OpenAI/OpenAI.yaml,                      path: ./ruleset/OpenAi.yaml       }
   GlobalMedia: {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GlobalMedia/GlobalMedia_Classical.yaml,  path: ./ruleset/GlobalMedia.yaml  }
+  Apple:       {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Apple/Apple_Classical.yaml,              path: ./ruleset/Apple.yaml        }
   Github:      {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/GitHub/GitHub.yaml,                      path: ./ruleset/Github.yaml       }
   Microsoft:   {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Microsoft/Microsoft.yaml,                path: ./ruleset/Microsoft.yaml    }
   Google:      {<<: *a6, url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Google/Google.yaml,                      path: ./ruleset/Google.yaml       }
@@ -110,6 +109,7 @@ rule-providers:
 rules:
   - RULE-SET,Direct,DIRECT
   - RULE-SET,Lan,DIRECT
+  - RULE-SET,Apple,DIRECT
   - RULE-SET,Download,DIRECT
   - RULE-SET,Ad,AdBlock
   - RULE-SET,OpenAi,OpenAi
