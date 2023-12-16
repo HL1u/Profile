@@ -75,19 +75,16 @@ proxy-groups:
 #分流分组
   - {name: 手动切换, <<: *a2}
   - {name: 全球加速, <<: *a3}
-  - {name: OpenAi,   type: select, proxies: [美国节点]}
-  - {name: Youtube, <<: *a3}
-  - {name: Google, <<: *a3}
-  - {name: Telegram, <<: *a3}
+ #节点分组
+  - {name: 自动选择, <<: *a4}
+  - {name: 香港节点, <<: *a4, filter: "港|HK|(?i)Hong"           }             # a4更改为a2，即为手动选择
+  - {name: 日本节点, <<: *a4, filter: "日|东京|JP|(?i)Japan"     }             # a4更改为a2，即为手动选择    
+  - {name: 美国节点, <<: *a4, filter: "美|US|(?i)States|American"}             # a4更改为a2，即为手动选择
+  - {name: 优选节点, <<: *a4, filter: "B1|(?i)Taiwan"      }             # a4更改为a2，即为手动选择
   - {name: AdBlock, type: select, proxies: [REJECT]}
   - {name: Final, <<: *a3}
   
-#节点分组
-  - {name: 自动选择, <<: *a4}
-  - {name: 香港节点, <<: *a4, filter: "港|HK|(?i)Hong"           }             # a4更改为a2，即为手动选择
-  - {name: 日本节点, <<:  *a4, filter: "日|东京|JP|(?i)Japan"     }             # a4更改为a2，即为手动选择    
-  - {name: 美国节点, <<: *a4, filter: "美|US|(?i)States|American"}             # a4更改为a2，即为手动选择
-  - {name: 优选节点, <<: *a4, filter: "B1|(?i)Taiwan"      }             # a4更改为a2，即为手动选择
+
 
 # 分流规则 
 rule-providers:
@@ -110,12 +107,12 @@ rules:
   - RULE-SET,Lan,DIRECT
   - RULE-SET,Download,DIRECT
   - RULE-SET,Ad,AdBlock
-  - RULE-SET,OpenAi,OpenAi
-  - RULE-SET,Youtube,Youtube
+  - RULE-SET,OpenAi,全球加速
+  - RULE-SET,Youtube,全球加速
   - RULE-SET,Github,全球加速
   - RULE-SET,Microsoft, DIRECT
-  - RULE-SET,Google,Google
-  - RULE-SET,Telegram,Telegram
+  - RULE-SET,Google,全球加速
+  - RULE-SET,Telegram,全球加速
   - RULE-SET,ProxyLite,全球加速
   - RULE-SET,ChinaIP,DIRECT
   - GEOIP,CN,DIRECT
