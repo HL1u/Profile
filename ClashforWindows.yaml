@@ -66,7 +66,7 @@ i:    &a7 {type: http,     behavior: ipcidr,    interval: 86400}
 proxy-providers:
   Subscribe:
     <<: *a1
-    url: https://update.glados-config.com/clash/392458/c1783aa/77612/glados.yaml
+    url: https://update.com
     # URL后面填写格式1[单一订阅]: 直接填写你的机场Clash订阅[推荐此种方式，避免订阅泄露]
     path: ./proxy_providers/tmp.yaml
     
