@@ -1,11 +1,11 @@
 #==========================================
 # @ConfigName        Clash Config
 # @Author            @HL
-# @UpdateTime        2023/12/16
+# @UpdateTime        2023/12/25
 # @Function          支持手动选择、自动测速、广告屏蔽、兜底分流、按国家分组节点、多机场订阅等等   
 # @ClashDownload     https://github.com/Fndroid/clash_for_windows_pkg/releases
 # @Attention         𝐏𝐥𝐞𝐚𝐬𝐞 𝐮𝐬𝐞 𝐭𝐡𝐞 𝐥𝐚𝐭𝐞𝐬𝐭 𝐯𝐞𝐫𝐬𝐢𝐨𝐧 𝐨𝐟 𝐂𝐥𝐚𝐬𝐡𝐟𝐨𝐫𝐖𝐢𝐧𝐝𝐨𝐰𝐬
-# @ConfigVersion     1.0.10
+# @ConfigVersion     1.0.11
 #==========================================
 
 port: 7890           # HTTP 代理端口
@@ -55,6 +55,7 @@ dns:
 
 # 策略组引用
 pr:   &a3 {type: select,   proxies: [自动选择, 手动切换, 香港节点, 日本节点, 美国节点, 优选节点, DIRECT] }
+ppr:   &a8 {type: select,   proxies: [优选节点, 香港节点, 日本节点, 美国节点] }
 p:    &a1 {type: http,     interval: 86400,  health-check: {enable: true, url: http://www.gstatic.com/generate_204, interval: 1800} }
 auto: &a4 {type: url-test, lazy: true,  url: http://www.gstatic.com/generate_204, interval: 900, use: [Subscribe] }
 use:  &a2 {type: select,   use: [Subscribe] }
@@ -65,7 +66,7 @@ i:    &a7 {type: http,     behavior: ipcidr,    interval: 86400}
 proxy-providers:
   Subscribe:
     <<: *a1
-    url: https://update.com
+    url: https://update.glados-config.com/clash/392458/c1783aa/77612/glados.yaml
     # URL后面填写格式1[单一订阅]: 直接填写你的机场Clash订阅[推荐此种方式，避免订阅泄露]
     path: ./proxy_providers/tmp.yaml
     
@@ -73,7 +74,11 @@ proxies: null
 proxy-groups:
 #分流分组
   - {name: 全球加速, <<: *a3}
-  - {name: 手动切换, <<: *a2}
+  - {name: Google,   type: select, proxies: [优选节点, 香港节点, 日本节点, 美国节点]}
+  - {name: Telegram,   type: select, proxies: [优选节点, 香港节点, 日本节点, 美国节点]}
+  - {name: Youtube,   type: select, proxies: [优选节点, 香港节点, 日本节点, 美国节点]}
+  - {name: Github,   type: select, proxies: [优选节点, 香港节点, 日本节点, 美国节点]}
+  - {name: OpenAi,   type: select, proxies: [优选节点, 香港节点, 日本节点, 美国节点]}
   
  #节点分组
   - {name: 自动选择, <<: *a4}
@@ -81,6 +86,7 @@ proxy-groups:
   - {name: 香港节点, <<: *a4, filter: "港|HK|(?i)Hong"           }             # a4更改为a2，即为手动选择
   - {name: 日本节点, <<: *a4, filter: "日|东京|JP|(?i)Japan"     }             # a4更改为a2，即为手动选择    
   - {name: 美国节点, <<: *a4, filter: "美|US|(?i)States|American"}             # a4更改为a2，即为手动选择
+  - {name: 手动切换, <<: *a2}
   - {name: AdBlock, type: select, proxies: [REJECT]}
   - {name: Final, <<: *a3}
   
@@ -107,12 +113,12 @@ rules:
   - RULE-SET,Lan,DIRECT
   - RULE-SET,Download,DIRECT
   - RULE-SET,Ad,AdBlock
-  - RULE-SET,OpenAi,全球加速
-  - RULE-SET,Youtube,全球加速
-  - RULE-SET,Github,全球加速
+  - RULE-SET,OpenAi,OpenAi
+  - RULE-SET,Youtube,Youtube
+  - RULE-SET,Github,Github
   - RULE-SET,Microsoft, DIRECT
-  - RULE-SET,Google,全球加速
-  - RULE-SET,Telegram,全球加速
+  - RULE-SET,Google,Google
+  - RULE-SET,Telegram,Telegram
   - RULE-SET,ProxyLite,全球加速
   - RULE-SET,ChinaIP,DIRECT
   - GEOIP,CN,DIRECT
