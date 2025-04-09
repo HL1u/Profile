@@ -15,7 +15,7 @@ proxy-groups:
   - {name: 全球加速, type: select, proxies: [手动切换, DIRECT, 自动选择, 香港节点, 美国节点, 日本节点], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Global.png }
   - {name: OpenAi,   type: select, proxies: [香港节点, 美国节点, 手动切换], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/OpenAI.png }
   - {name: AdBlock,  type: select, proxies: [REJECT, DIRECT], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Adblock.png }
-  - {name: Final, type: select, proxies: [手动切换, DIRECT, 自动选择, 香港节点, 日本节点, 台湾节点, 美国节点, 狮城节点], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Final.png }
+  - {name: Final, type: select, proxies: [手动切换, DIRECT, 自动选择, 香港节点, 美国节点, 日本节点], icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Final.png }
   
 #节点分组
   - {name: 自动选择, type: url-test, include-all: true, interval: 600, tolerance: 50,  icon: https://raw.githubusercontent.com/Orz-3/mini/master/Color/Urltest.png }
