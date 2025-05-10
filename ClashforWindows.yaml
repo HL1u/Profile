@@ -1,7 +1,7 @@
 #==========================================
 # @ConfigName        Clash Config
 # @Author            @HL
-# @UpdateTime        2025/04/07
+# @UpdateTime        2025/05/10
 # @Function          支持手动选择、自动测速、广告屏蔽、兜底分流、按国家分组节点、多机场订阅等，配置同样适用ClashVerge   
 # @ClashVerge        https://github.com/clash-verge-rev/clash-verge-rev/releases
 # @Attention         𝐏𝐥𝐞𝐚𝐬𝐞 𝐮𝐬𝐞 𝐭𝐡𝐞 𝐥𝐚𝐭𝐞𝐬𝐭 𝐯𝐞𝐫𝐬𝐢𝐨𝐧 𝐨𝐟 𝐂𝐥𝐚𝐬𝐡𝐟𝐨𝐫𝐖𝐢𝐧𝐝𝐨𝐰𝐬
@@ -85,6 +85,7 @@ proxy-groups:
   - {name: 日本节点, <<:  *a4, filter: "日|东京|JP|(?i)Japan"     }             # a4更改为a2，即为手动选择     
   - {name: 美国节点, <<: *a4, filter: "美|US|(?i)States|American"}             # a4更改为a2，即为手动选择
 
+
 # 分流规则 
 rule-providers:
   Ad:          {<<: *a5, url: https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules_domainset.txt,                      path: ./ruleset/anti-ad-clash.yaml}
@@ -101,7 +102,7 @@ rule-providers:
 rules:
   - RULE-SET,Ad,AdBlock
   - RULE-SET,OpenAi,OpenAi
-  - RULE-SET,Microsoft, 全球加速
+  - RULE-SET,Microsoft,DIRECT
   - RULE-SET,ProxyLite,全球加速
   - RULE-SET,Direct,DIRECT
   - RULE-SET,Lan,DIRECT
