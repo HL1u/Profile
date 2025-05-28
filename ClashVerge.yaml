@@ -65,7 +65,7 @@ i:    &a7 {type: http,     behavior: ipcidr,    interval: 86400}
 proxy-providers:
   Sub1:
     <<: *a1
-    url: https://subs.ojbktv.com/subscribe/?sid=8467&uid=7317&token=5ecc63ed167f8503d627&app=clashverge
+    url: https://t.me/ddgksf2021.yaml
     # URL后面填写格式: 直接填写你的机场Clash订阅
     path: ./proxy_providers/sub1.yaml
   Sub2:
