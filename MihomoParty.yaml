@@ -20,9 +20,9 @@ proxy-groups:
   - {name: 日本节点, type: url-test, include-all: true, interval: 600, tolerance: 50,  filter: "日|东京|JP|(?i)Japan"}
   - {name: 美国节点, type: url-test, include-all: true, interval: 600, tolerance: 50,  filter: "美|US|(?i)States|American"}
   - {name: 狮城节点, type: url-test, include-all: true, interval: 600, tolerance: 50,  filter: "新|坡|SG|(?i)Singapore"}
-  - {name: 自动选择, type: url-test, include-all: true, interval: 600, tolerance: 50}
-  - {name: 手动切换, type: select, include-all: true}
   - {name: Final, type: select, proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 手动切换, 自动选择, DIRECT]}
+  - {name: 手动切换, type: select, include-all: true}
+  - {name: 自动选择, type: url-test, include-all: true, interval: 600, tolerance: 50}
   - {name: AdBlock,  type: select, proxies: [REJECT, DIRECT]}
 
 
