@@ -1,0 +1,144 @@
+proxy-groups:
+  - name: 节点选择
+    type: select
+    proxies:
+      - 香港节点
+      - 美国节点
+      - 狮城节点
+      - 台湾节点
+      - 日本节点
+      - 手动切换
+      - 自动选择
+      - DIRECT
+  - name: OpenAi
+    type: select
+    proxies:
+      - 香港节点
+      - 美国节点
+      - 狮城节点
+  - name: Google
+    type: select
+    proxies:
+      - 香港节点
+      - 美国节点
+      - 狮城节点
+
+  - name: 香港节点
+    include-all: true
+    filter: (?i)港|HK|HongKong
+    type: url-test
+    interval: 300
+    tolerance: 50
+  - name: 日本节点
+    include-all: true
+    filter: (?i)日|JP|Japan
+    type: url-test
+    interval: 300
+    tolerance: 50
+  - name: 美国节点
+    include-all: true
+    filter: (?i)美|US|United States
+    type: url-test
+    interval: 300
+    tolerance: 50
+  - name: 台湾节点
+    include-all: true
+    filter: (?i)台|TW|Taiwan
+    type: url-test
+    interval: 300
+    tolerance: 50
+  - name: 狮城节点
+    include-all: true
+    filter: (?i)新|狮|SG|Singapore
+    type: url-test
+    interval: 300
+    tolerance: 50
+  - name: 手动切换
+    include-all: true
+    type: select
+  - name: 自动选择
+    type: url-test
+    include-all: true
+    interval: 300
+    tolerance: 50
+  - name: Final
+    type: select
+    proxies:
+      - 节点选择
+      - 香港节点
+      - 美国节点
+      - 狮城节点
+      - 台湾节点
+      - 日本节点
+      - 手动切换
+      - 自动选择
+      - DIRECT
+
+rule-providers:
+
+  AdBlock:
+    url: https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules_domainset.txt
+    path: ./ruleset/AdBlock.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+
+  Google:
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Google/Google.yaml
+    path: ./ruleset/Google.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+
+  Microsoft:
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Microsoft/Microsoft.yaml
+    path: ./ruleset/Microsoft.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+
+  OpenAi:
+    url: https://gist.githubusercontent.com/ddgksf2013/cb4121e8b5c5d865cc949cb8120320c4/raw/Ai.yaml
+    path: ./ruleset/OpenAi.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+
+  ProxyLite:
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/ProxyLite/ProxyLite.yaml
+    path: ./ruleset/ProxyLite.list
+    behavior: classical
+    interval: 86400
+    format: text
+    type: http
+    
+  ChinaIp:
+    url: https://cdn.jsdelivr.net/gh/soffchen/GeoIP2-CN@release/clash-rule-provider.yml
+    path: ./ruleset/ChinaIp.list
+    behavior: domain
+    interval: 86400
+    format: text
+    type: http
+    
+  Direct:
+    url: https://cdn.jsdelivr.net/gh/blackmatrix7/ios_rule_script@master/rule/Clash/Direct/Direct.yaml
+    path: ./ruleset/Direct.list
+    behavior: domain
+    interval: 86400
+    format: text
+    type: http
+
+rules:
+  - "RULE-SET,AdBlock,REJECT"
+  - "RULE-SET,Google,Google"
+  - "RULE-SET,Microsoft,DIRECT"
+  - "RULE-SET,OpenAi,OpenAi"
+  - "RULE-SET,ProxyLite,节点选择"
+  - "RULE-SET,ChinaIp,DIRECT"
+  - "RULE-SET,Direct,DIRECT"
+  - "GEOIP,CN,DIRECT"
+  - "MATCH,Final"
