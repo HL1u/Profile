@@ -25,7 +25,7 @@ proxy-groups:
 
   - name: 香港节点
     include-all: true
-    filter: (?i)港|HK|HongKong
+    filter: (?i)港|HK|Hong Kong
     type: url-test
     interval: 300
     tolerance: 50
