@@ -25,10 +25,10 @@ proxy-groups:
   - {name: Google, <<: *a3}
   - {name: Telegram, <<: *a3}
 
-  - {name: 香港节点, <<: *a4, filter: "(?i)港|HK|Hong Kong"           }             # a4更改为a2，即为手动选择
-  - {name: 美国节点, <<: *a4, filter: "(?i)美|US|United States"}             # a4更改为a2，即为手动选择
-  - {name: 狮城节点, <<: *a4, filter: "(?i)新|狮|SG|Singapore"    }            # a4更改为a2，即为手动选择
-  - {name: 日本节点, <<: *a4, filter: "(?i)日|JP|Japan"      }             # a4更改为a2，即为手动选择     
+  - {name: 香港节点, <<: *a4, filter: (?i)港|HK|Hong Kong          }             # a4更改为a2，即为手动选择
+  - {name: 美国节点, <<: *a4, filter: (?i)美|US|United States}             # a4更改为a2，即为手动选择
+  - {name: 狮城节点, <<: *a4, filter: (?i)新|狮|SG|Singapore  }            # a4更改为a2，即为手动选择
+  - {name: 日本节点, <<: *a4, filter: (?i)日|JP|Japan     }             # a4更改为a2，即为手动选择     
   - {name: 自动选择, <<: *a4}
   - {name: 手动切换, <<: *a2}
   - {name: Final, <<: *a3}
