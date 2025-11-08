@@ -91,7 +91,7 @@ rule-providers:
     behavior: domain
     interval: 86400
     format: text
-    url: https://raw.githubusercontent.com/Cats-Team/AdRules/refs/heads/main/adrules_domainset.txt
+    url: https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules_domainset.txt
 
   OpenAi:
     type: http
