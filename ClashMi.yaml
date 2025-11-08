@@ -1,0 +1,172 @@
+#==========================================
+# @ConfigName        ClashMi Override
+# @Author            Adapted from HL by GPT-5
+# @Platform          iOS (ClashMi)
+# @UpdateTime        2025/11/08
+# @Note              优化适配iPhone使用，去除本地路径，保留所有核心分流与策略组
+#==========================================
+
+proxy-groups:
+  - name: 全球加速
+    type: select
+    proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 手动切换, 自动选择, DIRECT]
+
+  - name: OpenAi
+    type: select
+    proxies: [香港节点, 美国节点, 狮城节点, 手动切换]
+
+  - name: 国际媒体
+    type: select
+    proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 手动切换, 自动选择, DIRECT]
+
+  - name: 谷歌服务
+    type: select
+    proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 手动切换, 自动选择, DIRECT]
+
+  - name: 香港节点
+    type: url-test
+    include-all: true
+    interval: 600
+    tolerance: 50
+    filter: "港|HK|(?i)Hong"
+
+  - name: 日本节点
+    type: url-test
+    include-all: true
+    interval: 600
+    tolerance: 50
+    filter: "日|东京|JP|(?i)Japan"
+
+  - name: 美国节点
+    type: url-test
+    include-all: true
+    interval: 600
+    tolerance: 50
+    filter: "美|US|(?i)States|American"
+
+  - name: 狮城节点
+    type: url-test
+    include-all: true
+    interval: 600
+    tolerance: 50
+    filter: "新|坡|SG|(?i)Singapore"
+
+  - name: 手动切换
+    type: select
+    include-all: true
+
+  - name: 自动选择
+    type: url-test
+    include-all: true
+    interval: 600
+    tolerance: 50
+
+  - name: AdBlock
+    type: select
+    proxies: [REJECT, DIRECT]
+
+  - name: Final
+    type: select
+    proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 手动切换, 自动选择, DIRECT]
+
+# DNS (ClashMi 推荐配置)
+dns:
+  enable: true
+  ipv6: false
+  default-nameserver: [223.5.5.5, 119.29.29.29]
+  nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  fallback:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+  fallback-filter:
+    geoip: true
+    ipcidr: [240.0.0.0/4, 127.0.0.0/8]
+
+# Rule Providers (ClashMi 仅支持 HTTP/HTTPS 远程引用)
+rule-providers:
+  AdBlock:
+    type: http
+    behavior: domain
+    interval: 86400
+    format: text
+    url: https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules_domainset.txt
+
+  OpenAi:
+    type: http
+    behavior: classical
+    interval: 86400
+    format: yaml
+    url: https://gist.githubusercontent.com/ddgksf2013/cb4121e8b5c5d865cc949cb8120320c4/raw/Ai.yaml
+
+  GlobalMedia:
+    type: http
+    behavior: classical
+    interval: 86400
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia_Classical.yaml
+
+  Microsoft:
+    type: http
+    behavior: classical
+    interval: 86400
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.yaml
+
+  Google:
+    type: http
+    behavior: classical
+    interval: 86400
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google.yaml
+
+  ProxyLite:
+    type: http
+    behavior: classical
+    interval: 86400
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ProxyLite/ProxyLite.yaml
+
+  Direct:
+    type: http
+    behavior: classical
+    interval: 86400
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Direct/Direct.yaml
+
+  Lan:
+    type: http
+    behavior: classical
+    interval: 86400
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.yaml
+
+  Download:
+    type: http
+    behavior: classical
+    interval: 86400
+    format: yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Download/Download.yaml
+
+  ChinaIP:
+    type: http
+    behavior: ipcidr
+    interval: 86400
+    format: yaml
+    url: https://raw.githubusercontent.com/soffchen/GeoIP2-CN/release/clash-rule-provider.yml
+
+# Rules (分流逻辑)
+rules:
+  - RULE-SET,AdBlock,AdBlock
+  - RULE-SET,OpenAi,OpenAi
+  - RULE-SET,GlobalMedia,国际媒体
+  - RULE-SET,Microsoft,DIRECT
+  - RULE-SET,Google,谷歌服务
+  - RULE-SET,ProxyLite,全球加速
+  - RULE-SET,ChinaIP,DIRECT
+  - RULE-SET,Direct,DIRECT
+  - RULE-SET,Lan,DIRECT
+  - RULE-SET,Download,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,Final
