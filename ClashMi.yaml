@@ -1,107 +1,163 @@
-#==================================================
-# @ConfigName        Clash Mi Override Config (for Mihomo)
-# @Base              HL MihomoParty
-# @Author            @HL + GPT-5 优化版
+#==========================================
+# @ConfigName        MihomoParty Full Config
+# @Author            @HL (Modified for Clash.Mi)
 # @UpdateTime        2025/11/08
-# @Function          完整可用配置：全局代理 + 分流策略 + DNS优化 + 广告屏蔽 + 自动测速 + OpenAI + 流媒体
-#==================================================
+# @Description       支持自动测速、广告屏蔽、AI/OpenAI分流、媒体分流、兜底、分国家测速分组
+#==========================================
 
-mixed-port: 7890
+port: 7890
+socks-port: 7891
 allow-lan: true
 bind-address: '*'
 mode: rule
 log-level: info
-ipv6: true
-unified-delay: true
-
+ipv6: false
 external-controller: 127.0.0.1:9090
 secret: ""
-find-process-mode: strict
 
-# 可选 UI 控制面板（例如 mihomo-party、yacd、metacubexd）
-external-ui: /usr/share/mihomo-dashboard
-
-#-----------------------------------
-# 🔧 TUN 模式设置（推荐开启以支持系统级代理）
-#-----------------------------------
-tun:
-  enable: true
-  stack: system
-  auto-route: true
-  auto-detect-interface: true
-  dns-hijack:
-    - 198.18.0.2:53
-  strict-route: false
-
-#-----------------------------------
-# 🧠 DNS 优化（Fake-IP 模式 + DoH）
-#-----------------------------------
 dns:
   enable: true
   listen: 0.0.0.0:53
-  ipv6: true
-  use-hosts: true
-  enhanced-mode: fake-ip
+  ipv6: false
+  default-nameserver:
+    - 114.114.114.114
+    - 8.8.8.8
+  nameserver:
+    - https://1.1.1.1/dns-query
+    - https://dns.google/dns-query
+    - tls://dns.rubyfish.cn:853
   fake-ip-range: 198.18.0.1/16
   fake-ip-filter:
     - '*.lan'
-    - '*.local'
-    - '+.pool.ntp.org'
-    - 'time.*.com'
-    - 'time.*.gov'
-    - 'time.*.edu.cn'
-    - '*.ntp.org'
-    - '*.ntp.aliyun.com'
-  nameserver:
-    - https://1.1.1.1/dns-query
-    - https://8.8.8.8/dns-query
-    - https://doh.pub/dns-query
-  fallback:
-    - https://1.0.0.1/dns-query
-    - https://9.9.9.9/dns-query
-  fallback-filter:
-    geoip: true
-    geoip-code: CN
-    ipcidr:
-      - 240.0.0.0/4
-    domain:
-      - '+.google.com'
-      - '+.facebook.com'
-      - '+.youtube.com'
-      - '+.twitter.com'
-      - '+.openai.com'
+    - 'localhost.ptlogin2.qq.com'
 
-#-----------------------------------
-# 📦 代理策略组
-#-----------------------------------
+# ======================== 代理节点订阅提供商 =========================
+proxy-providers:
+  myprovider:
+    type: http
+    url: "你的机场订阅链接"
+    path: ./proxies/myprovider.yaml
+    interval: 3600
+    health-check:
+      enable: true
+      interval: 600
+      url: http://www.gstatic.com/generate_204
+
+# ======================== 代理分组定义 =========================
 proxy-groups:
-  - {name: 全球加速, type: select, proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 手动切换, 自动选择, DIRECT]}
-  - {name: OpenAi,  type: select, proxies: [香港节点, 美国节点, 狮城节点, 手动切换]}
-  - {name: 国际媒体, type: select, proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 手动切换, 自动选择, DIRECT]}
-  - {name: 谷歌服务, type: select, proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 手动切换, 自动选择, DIRECT]}
+  - name: 全球加速
+    type: select
+    proxies:
+      - 香港节点
+      - 美国节点
+      - 日本节点
+      - 狮城节点
+      - 自动选择
+      - 手动切换
+      - DIRECT
 
-  - {name: 香港节点, type: url-test, include-all: true, interval: 600, tolerance: 50, filter: "港|HK|(?i)Hong"}             
-  - {name: 日本节点, type: url-test, include-all: true, interval: 600, tolerance: 50, filter: "日|东京|JP|(?i)Japan"}
-  - {name: 美国节点, type: url-test, include-all: true, interval: 600, tolerance: 50, filter: "美|US|(?i)States|American"}
-  - {name: 狮城节点, type: url-test, include-all: true, interval: 600, tolerance: 50, filter: "新|坡|SG|(?i)Singapore"}
-  - {name: Final, type: select, proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 手动切换, 自动选择, DIRECT]}
-  - {name: 手动切换, type: select, include-all: true}
-  - {name: 自动选择, type: url-test, include-all: true, interval: 600, tolerance: 50}
-  - {name: AdBlock,  type: select, proxies: [REJECT, DIRECT]}
+  - name: OpenAi
+    type: select
+    proxies:
+      - 美国节点
+      - 日本节点
+      - 狮城节点
+      - 手动切换
 
-#-----------------------------------
-# 🗂️ 规则集（Rule Providers）
-#-----------------------------------
+  - name: 国际媒体
+    type: select
+    proxies:
+      - 香港节点
+      - 美国节点
+      - 日本节点
+      - 狮城节点
+      - 自动选择
+      - 手动切换
+      - DIRECT
+
+  - name: 谷歌服务
+    type: select
+    proxies:
+      - 香港节点
+      - 美国节点
+      - 日本节点
+      - 狮城节点
+      - 自动选择
+      - 手动切换
+      - DIRECT
+
+  - name: 香港节点
+    type: url-test
+    use:
+      - myprovider
+    filter: "港|HK|(?i)Hong"
+    interval: 600
+    tolerance: 50
+
+  - name: 日本节点
+    type: url-test
+    use:
+      - myprovider
+    filter: "日|东京|JP|(?i)Japan"
+    interval: 600
+    tolerance: 50
+
+  - name: 美国节点
+    type: url-test
+    use:
+      - myprovider
+    filter: "美|US|(?i)States|American"
+    interval: 600
+    tolerance: 50
+
+  - name: 狮城节点
+    type: url-test
+    use:
+      - myprovider
+    filter: "新|坡|SG|(?i)Singapore"
+    interval: 600
+    tolerance: 50
+
+  - name: 手动切换
+    type: select
+    use:
+      - myprovider
+
+  - name: 自动选择
+    type: url-test
+    use:
+      - myprovider
+    interval: 600
+    tolerance: 50
+
+  - name: AdBlock
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+
+  - name: Final
+    type: select
+    proxies:
+      - 自动选择
+      - 手动切换
+      - 香港节点
+      - 美国节点
+      - 狮城节点
+      - 日本节点
+      - DIRECT
+
+# ======================== 规则集引入 =========================
 rule-providers:
-  AdBlock:     
+  AdBlock:
     type: http
     behavior: domain
     format: text
     interval: 86400
     url: https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules_domainset.txt
-    path: ./ruleset/anti-ad-clash.txt 
+    path: ./ruleset/AdBlock.txt
 
-  OpenAi:      
+  OpenAi:
     type: http
     behavior: classical
     format: yaml
@@ -109,7 +165,7 @@ rule-providers:
     url: https://gist.githubusercontent.com/ddgksf2013/cb4121e8b5c5d865cc949cb8120320c4/raw/Ai.yaml
     path: ./ruleset/OpenAi.yaml
 
-  GlobalMedia: 
+  GlobalMedia:
     type: http
     behavior: classical
     format: yaml
@@ -117,15 +173,7 @@ rule-providers:
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia_Classical.yaml
     path: ./ruleset/GlobalMedia.yaml
 
-  Microsoft:   
-    type: http
-    behavior: classical
-    format: yaml
-    interval: 86400
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.yaml
-    path: ./ruleset/Microsoft.yaml
-
-  Google:      
+  Google:
     type: http
     behavior: classical
     format: yaml
@@ -133,15 +181,15 @@ rule-providers:
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google.yaml
     path: ./ruleset/Google.yaml
 
-  ProxyLite:   
+  Microsoft:
     type: http
     behavior: classical
     format: yaml
     interval: 86400
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ProxyLite/ProxyLite.yaml
-    path: ./ruleset/ProxyLite.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.yaml
+    path: ./ruleset/Microsoft.yaml
 
-  Direct:      
+  Direct:
     type: http
     behavior: classical
     format: yaml
@@ -149,7 +197,7 @@ rule-providers:
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Direct/Direct.yaml
     path: ./ruleset/Direct.yaml
 
-  Lan:         
+  Lan:
     type: http
     behavior: classical
     format: yaml
@@ -157,15 +205,7 @@ rule-providers:
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.yaml
     path: ./ruleset/Lan.yaml
 
-  Download:    
-    type: http
-    behavior: classical
-    format: yaml
-    interval: 86400
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Download/Download.yaml
-    path: ./ruleset/Download.yaml
-
-  ChinaIP:     
+  ChinaIP:
     type: http
     behavior: ipcidr
     format: yaml
@@ -173,19 +213,15 @@ rule-providers:
     url: https://raw.githubusercontent.com/soffchen/GeoIP2-CN/release/clash-rule-provider.yml
     path: ./ruleset/ChinaIP.yaml
 
-#-----------------------------------
-# 🚦 分流规则（Rules）
-#-----------------------------------
+# ======================== 分流规则 =========================
 rules:
   - RULE-SET,AdBlock,AdBlock
   - RULE-SET,OpenAi,OpenAi
   - RULE-SET,GlobalMedia,国际媒体
   - RULE-SET,Microsoft,DIRECT
   - RULE-SET,Google,谷歌服务
-  - RULE-SET,ProxyLite,全球加速
-  - RULE-SET,ChinaIP,DIRECT
   - RULE-SET,Direct,DIRECT
   - RULE-SET,Lan,DIRECT
-  - RULE-SET,Download,DIRECT
+  - RULE-SET,ChinaIP,DIRECT
   - GEOIP,CN,DIRECT
   - MATCH,Final
