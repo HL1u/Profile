@@ -35,10 +35,8 @@ proxy-groups:
       - 自动选择
       - 狮城节点
       - 香港节点
-      - 日本节点
       - 美国节点
       - 手动切换
-      - DIRECT
   - name: 油管视频
     type: select
     proxies:
@@ -46,41 +44,29 @@ proxy-groups:
       - 自动选择
       - 狮城节点
       - 香港节点
-      - 日本节点
       - 美国节点
       - 手动切换
-      - DIRECT
   - name: 国外媒体
     type: select
     proxies:
       - 节点选择
-      - 自动选择
       - 香港节点
       - 狮城节点
-      - 日本节点
       - 美国节点
       - 手动切换
-      - DIRECT
   - name: 国内媒体
     type: select
     proxies:
       - DIRECT
       - 香港节点
-      - 台湾节点
-      - 狮城节点
-      - 日本节点
-      - 手动切换
   - name: 谷歌FCM
     type: select
     proxies:
-      - DIRECT
       - 节点选择
       - 美国节点
       - 香港节点
       - 狮城节点
-      - 日本节点
       - 手动切换
-
   - name: 微软服务
     type: select
     proxies:
@@ -89,9 +75,6 @@ proxy-groups:
       - 美国节点
       - 香港节点
       - 狮城节点
-      - 日本节点
-      - 手动切换
-
   - name: 全球直连
     type: select
     proxies:
