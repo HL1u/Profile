@@ -87,19 +87,19 @@ proxy-groups:
     type: url-test
     interval: 300
     tolerance: 50
-  - name: 🇯🇵 日本节点
+  - name: 日本节点
     include-all: true
     filter: (?i)日本|JP|Japan
     type: url-test
     interval: 300
     tolerance: 50
-  - name: 🇺🇲 美国节点
+  - name: 美国节点
     include-all: true
     filter: (?i)美|US|United States
     type: url-test
     interval: 300
     tolerance: 50
-  - name: 🇸🇬 狮城节点
+  - name: 狮城节点
     include-all: true
     filter: (?i)新加坡|坡|狮城|SG|Singapore
     type: url-test
