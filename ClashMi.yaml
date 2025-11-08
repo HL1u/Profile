@@ -68,17 +68,26 @@ proxy-groups:
   - name: Final
     type: select
     proxies: [香港节点, 美国节点, 狮城节点, 日本节点, 手动切换, 自动选择, DIRECT]
-
+    
+# DNS (ClashMi 推荐配置)
+dns:
+  enable: true
+  ipv6: false
+  default-nameserver: [223.5.5.5, 119.29.29.29]
+  nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  fallback:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+  fallback-filter:
+    geoip: true
+    ipcidr: [240.0.0.0/4, 127.0.0.0/8]
 
 
 # Rule Providers (ClashMi 仅支持 HTTP/HTTPS 远程引用)
 rule-providers:
-  AdBlock:
-    type: http
-    behavior: domain
-    interval: 86400
-    format: text
-    url: https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules_domainset.txt
+
 
   OpenAi:
     type: http
@@ -145,7 +154,7 @@ rule-providers:
 
 # Rules (分流逻辑)
 rules:
-  - RULE-SET,AdBlock,AdBlock
+
   - RULE-SET,OpenAi,OpenAi
   - RULE-SET,GlobalMedia,国际媒体
   - RULE-SET,Microsoft,DIRECT
