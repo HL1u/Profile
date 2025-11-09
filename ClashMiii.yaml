@@ -1,11 +1,12 @@
 #====================================================
-# @ConfigName        ClashMi Full MihomoParty Override
-# @Author            ChatGPT
+# @ConfigName        ClashMi Config
+# @Author            @HL
 # @UpdateTime        2025/11/09
-# @Function          Fake-IP + DNS | 自动测速 | 国家分组 | OpenAI | 全球加速 | 流媒体 | 广告屏蔽 | 兜底
+# @Function          支持手动选择、自动测速、广告屏蔽、兜底分流、按国家分组节点
+# @ConfigVersion     1.0.2
 #====================================================
 
-#================== 基础设置 ==================
+#基础配置
 mixed-port: 7891
 allow-lan: false
 ipv6: false
@@ -13,7 +14,6 @@ mode: rule
 log-level: info
 external-controller: 127.0.0.1:9090
 
-#================== DNS 配置 ==================
 dns:
   enable: true
   listen: 0.0.0.0:53
@@ -31,7 +31,6 @@ dns:
     ipcidr:
       - 240.0.0.0/4
 
-#================== 自动测速 ==================
 url-test:
   url: http://www.gstatic.com/generate_204
   interval: 600
