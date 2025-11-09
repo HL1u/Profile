@@ -62,7 +62,7 @@ rule-providers:
   AdBlock:
     type: http
     behavior: domain
-    format: txt
+    format: text
     interval: 86400
     url: https://ghfast.top/https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules_domainset.txt
     path: ./ruleset/AdBlock.yaml
