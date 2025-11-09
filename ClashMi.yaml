@@ -1,50 +1,43 @@
 #====================================================
-# @ConfigName        ClashMi Full Override Config
-# @Author            Custom by ChatGPT (base on @HL)
+# @ConfigName        ClashMi Config
+# @Author            @HL
 # @UpdateTime        2025/11/09
-# @Compatible        ClashMi / Mihomo 内核
-# @Function          自动测速｜按国家分组｜广告屏蔽｜OpenAI 分流｜DNS 优化｜兜底分流
-# @Usage             添加为远程覆写 -> 绑定机场订阅 -> 启用系统代理
+# @Function          支持手动选择、自动测速、广告屏蔽、兜底分流、按国家分组节点
+# @ConfigVersion     1.0.2
 #====================================================
 
-#================== 基础设置 ==================
-mixed-port: 7890
+mixed-port: 7891
 allow-lan: false
 ipv6: false
 mode: rule
 log-level: info
 external-controller: 127.0.0.1:9090
-secret: ""
 
-#================== DNS 配置 ==================
 dns:
   enable: true
-  listen: 0.0.0.0:53
   ipv6: false
-  default-nameserver:
-    - 223.5.5.5
-    - 119.29.29.29
-    - 1.1.1.1
+  listen: 0.0.0.0:53
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   nameserver:
-    - https://1.1.1.1/dns-query
-    - https://8.8.8.8/dns-query
+    - 223.5.5.5
+    - 119.29.29.29
   fallback:
-    - https://1.0.0.1/dns-query
-    - https://9.9.9.9/dns-query
+    - https://cloudflare-dns.com/dns-query
+    - https://dns.google/dns-query
+    - https://dns.alidns.com/dns-query
   fallback-filter:
     geoip: true
+    geoip-code: CN
     ipcidr:
       - 240.0.0.0/4
 
-#================== 自动测速参数 ==================
 url-test:
   url: http://www.gstatic.com/generate_204
   interval: 600
   tolerance: 50
 
-#================== 代理分组 ==================
+
 proxy-groups:
   # 主策略组
   - {name: 全球加速, type: select, proxies: [香港节点, 日本节点, 美国节点, 狮城节点, 手动切换, 自动选择, DIRECT]}
@@ -62,17 +55,9 @@ proxy-groups:
   # 辅助策略组
   - {name: 手动切换, type: select, include-all: true}
   - {name: 自动选择, type: url-test, include-all: true, interval: 600, tolerance: 50}
-  - {name: AdBlock, type: select, proxies: [REJECT, DIRECT]}
 
 #================== 规则提供者 ==================
 rule-providers:
-  AdBlock:
-    type: http
-    behavior: domain
-    format: text
-    interval: 86400
-    url: https://ghfast.top/https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules_domainset.txt
-    path: ./ruleset/AdBlock.txt
 
   OpenAi:
     type: http
@@ -146,9 +131,8 @@ rule-providers:
     url: https://ghfast.top/https://raw.githubusercontent.com/soffchen/GeoIP2-CN/release/clash-rule-provider.yml
     path: ./ruleset/ChinaIP.yaml
 
-#================== 分流策略规则 ==================
+#================== 分流规则 ==================
 rules:
-  - RULE-SET,AdBlock,AdBlock
   - RULE-SET,OpenAi,OpenAi
   - RULE-SET,GlobalMedia,国际媒体
   - RULE-SET,Microsoft,DIRECT
