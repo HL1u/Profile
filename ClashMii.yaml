@@ -2,12 +2,11 @@
 # @ConfigName        ClashMi Full MihomoParty Override
 # @Author            ChatGPT
 # @UpdateTime        2025/11/09
-# @Function          自动测速｜分国家分组｜广告屏蔽｜OpenAI｜全球加速｜兜底分流｜Fake-IP DNS
-# @Usage             添加为远程覆写 -> 绑定机场订阅 -> 启用系统代理
+# @Function          Fake-IP + DNS | 自动测速 | 国家分组 | OpenAI | 全球加速 | 流媒体 | 广告屏蔽 | 兜底
 #====================================================
 
 #================== 基础设置 ==================
-mixed-port: 7890
+mixed-port: 7891
 allow-lan: false
 ipv6: false
 mode: rule
@@ -18,7 +17,6 @@ external-controller: 127.0.0.1:9090
 dns:
   enable: true
   listen: 0.0.0.0:53
-  ipv6: false
   enhanced-mode: fake-ip
   fake-ip-range: 198.18.0.1/16
   nameserver:
@@ -28,6 +26,10 @@ dns:
   fallback:
     - 1.0.0.1
     - 9.9.9.9
+  fallback-filter:
+    geoip: true
+    ipcidr:
+      - 240.0.0.0/4
 
 #================== 自动测速 ==================
 url-test:
@@ -62,7 +64,7 @@ rule-providers:
     behavior: domain
     format: text
     interval: 86400
-    url: https://ghfast.top/https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules_domainset.txt
+    url: https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules_domainset.txt
     path: ./ruleset/AdBlock.txt
 
   OpenAi:
@@ -70,7 +72,7 @@ rule-providers:
     behavior: classical
     format: yaml
     interval: 86400
-    url: https://ghfast.top/https://gist.githubusercontent.com/ddgksf2013/cb4121e8b5c5d865cc949cb8120320c4/raw/Ai.yaml
+    url: https://gist.githubusercontent.com/ddgksf2013/cb4121e8b5c5d865cc949cb8120320c4/raw/Ai.yaml
     path: ./ruleset/OpenAi.yaml
 
   GlobalMedia:
@@ -78,7 +80,7 @@ rule-providers:
     behavior: classical
     format: yaml
     interval: 86400
-    url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia_Classical.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia_Classical.yaml
     path: ./ruleset/GlobalMedia.yaml
 
   Microsoft:
@@ -86,7 +88,7 @@ rule-providers:
     behavior: classical
     format: yaml
     interval: 86400
-    url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.yaml
     path: ./ruleset/Microsoft.yaml
 
   Google:
@@ -94,7 +96,7 @@ rule-providers:
     behavior: classical
     format: yaml
     interval: 86400
-    url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google.yaml
     path: ./ruleset/Google.yaml
 
   ProxyLite:
@@ -102,7 +104,7 @@ rule-providers:
     behavior: classical
     format: yaml
     interval: 86400
-    url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ProxyLite/ProxyLite.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ProxyLite/ProxyLite.yaml
     path: ./ruleset/ProxyLite.yaml
 
   Direct:
@@ -110,7 +112,7 @@ rule-providers:
     behavior: classical
     format: yaml
     interval: 86400
-    url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Direct/Direct.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Direct/Direct.yaml
     path: ./ruleset/Direct.yaml
 
   Lan:
@@ -118,7 +120,7 @@ rule-providers:
     behavior: classical
     format: yaml
     interval: 86400
-    url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.yaml
     path: ./ruleset/Lan.yaml
 
   Download:
@@ -126,7 +128,7 @@ rule-providers:
     behavior: classical
     format: yaml
     interval: 86400
-    url: https://ghfast.top/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Download/Download.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Download/Download.yaml
     path: ./ruleset/Download.yaml
 
   ChinaIP:
@@ -134,7 +136,7 @@ rule-providers:
     behavior: ipcidr
     format: yaml
     interval: 86400
-    url: https://ghfast.top/https://raw.githubusercontent.com/soffchen/GeoIP2-CN/release/clash-rule-provider.yml
+    url: https://raw.githubusercontent.com/soffchen/GeoIP2-CN/release/clash-rule-provider.yml
     path: ./ruleset/ChinaIP.yaml
 
 #================== 分流规则 ==================
