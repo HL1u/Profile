@@ -62,10 +62,10 @@ rule-providers:
   AdBlock:
     type: http
     behavior: domain
-    format: text
+    format: mrs
     interval: 86400
-    url: https://ghfast.top/https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules_domainset.txt
-    path: ./ruleset/AdBlock.yaml
+    url: https://ghfast.top/https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules-mihomo.mrs
+    path: ./ruleset/AdBlock.mrs
     
   OpenAi:
     type: http
