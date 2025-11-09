@@ -1,0 +1,35 @@
+#====================================================
+# @ConfigName        ClashMi iOS Stable Test
+# @Author            ChatGPT
+# @UpdateTime        2025/11/09
+# @Function          Global 模式可用｜SubStore 节点｜手动/自动选择组
+#====================================================
+
+#================== 基础设置 ==================
+mixed-port: 7891
+allow-lan: false
+ipv6: false
+mode: global
+log-level: info
+external-controller: 127.0.0.1:9090
+
+#================== DNS 设置 ==================
+dns:
+  enable: true
+  listen: 0.0.0.0:53
+  enhanced-mode: redir-host
+  nameserver:
+    - 1.1.1.1
+    - 8.8.8.8
+  fallback:
+    - 1.0.0.1
+    - 9.9.9.9
+
+#================== 代理分组 ==================
+proxy-groups:
+  - {name: 手动切换, type: select, include-all: true}
+  - {name: 自动选择, type: url-test, include-all: true, url: http://www.gstatic.com/generate_204, interval: 600, tolerance: 50}
+
+#================== 分流规则 ==================
+rules:
+  - MATCH,自动选择
