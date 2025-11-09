@@ -1,11 +1,48 @@
 #====================================================
-# @ConfigName        ClashMi Override Config
+# @ConfigName        ClashMi Full Override Config
 # @Author            Custom by ChatGPT (base on @HL)
 # @UpdateTime        2025/11/09
 # @Compatible        ClashMi / Mihomo 内核
-# @Function          自动测速｜分国家分组｜广告屏蔽｜OpenAI｜全球加速｜兜底分流
+# @Function          自动测速｜按国家分组｜广告屏蔽｜OpenAI 分流｜DNS 优化｜兜底分流
 # @Usage             添加为远程覆写 -> 绑定机场订阅 -> 启用系统代理
 #====================================================
+
+#================== 基础设置 ==================
+mixed-port: 7890
+allow-lan: false
+ipv6: false
+mode: rule
+log-level: info
+external-controller: 127.0.0.1:9090
+secret: ""
+
+#================== DNS 配置 ==================
+dns:
+  enable: true
+  listen: 0.0.0.0:53
+  ipv6: false
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+    - 1.1.1.1
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  nameserver:
+    - https://1.1.1.1/dns-query
+    - https://8.8.8.8/dns-query
+  fallback:
+    - https://1.0.0.1/dns-query
+    - https://9.9.9.9/dns-query
+  fallback-filter:
+    geoip: true
+    ipcidr:
+      - 240.0.0.0/4
+
+#================== 自动测速参数 ==================
+url-test:
+  url: http://www.gstatic.com/generate_204
+  interval: 600
+  tolerance: 50
 
 #================== 代理分组 ==================
 proxy-groups:
