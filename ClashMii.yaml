@@ -55,7 +55,6 @@ proxy-groups:
   # 辅助策略组
   - {name: 手动切换, type: select, include-all: true}
   - {name: 自动选择, type: url-test, include-all: true, interval: 600, tolerance: 50}
-  - {name: AdBlock, type: select, proxies: [REJECT, DIRECT]}
 
 #================== 规则提供者 ==================
 rule-providers:
