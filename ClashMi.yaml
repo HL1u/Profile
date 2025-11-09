@@ -1,4 +1,4 @@
-### ⬇⬇⬇分界线⬇⬇⬇ ### 请勿更改
+# 该配置直接使用Clash-Rules仓库规则。
 # 代理组
 proxy-groups:
   # 节点信息
@@ -19,15 +19,8 @@ proxy-groups:
       - 新加坡节点
       - 日本节点
       - 美国节点
+      - 尼日利亚节点
       - 故障转移
-      - 手动选择
-      - 全局直连
-
-  # 通用直连选择
-  - name: 全局直连
-    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/Direct.png
-    type: select
-    proxies:
       - DIRECT
 
   # 常用区域节点自动选择
@@ -51,15 +44,83 @@ proxy-groups:
     url: https://www.gstatic.com/generate_204
     interval: 250
 
-  # 剩余规则节点
-  - name: Final
-    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/Final.png
+  # 分流节点
+  - name: 常用直连应用
+    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/App_Store.png
+    type: select
+    proxies:
+      - DIRECT
+      - 节点选择
+  - name: 苹果CN
+    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/Apple.png
+    type: select
+    proxies:
+      - DIRECT
+      - 节点选择
+  - name: 云上贵州
+    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/iCloud.png
+    type: select
+    proxies:
+      - DIRECT
+      - 节点选择
+  - name: 私有网络
+    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/Puzzle.png
+    type: select
+    proxies:
+      - DIRECT
+      - 节点选择
+  - name: 广告拦截
+    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/AdBlack.png
+    type: select
+    proxies:
+      - REJECT
+      - DIRECT
+  - name: 谷歌
+    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/Google_Search.png
     type: select
     proxies:
       - 节点选择
-      - 全局直连
+      - DIRECT
+  - name: 常用代理
+    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/Proxy.png
+    type: select
+    proxies:
+      - 节点选择
+      - DIRECT
+  - name: 常用直连
+    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/Direct.png
+    type: select
+    proxies:
+      - DIRECT
+      - 节点选择
+  - name: 保留IP
+    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/Bypass.png
+    type: select
+    proxies:
+      - DIRECT
+      - 节点选择
+  - name: 大陆IP
+    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/China.png
+    type: select
+    proxies:
+      - DIRECT
+      - 节点选择
+  - name: 电报
+    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/Telegram.png
+    type: select
+    proxies:
+      - 节点选择
+      - 自动选择
+      - 香港节点
+      - 台湾节点
+      - 新加坡节点
+      - 日本节点
+      - 美国节点
+      - 尼日利亚节点
+      - 故障转移
+      - DIRECT
 
-  # 常用地区节点
+  # 地区节点
   - name: 香港节点
     icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/Hong_Kong.png
     include-all: true
@@ -95,13 +156,13 @@ proxy-groups:
     interval: 300
     tolerance: 50
     filter: (?i)美国|US
-
-  # 其他地区节点
-  - name: 手动选择
-    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/Area.png
+  - name: 尼日利亚节点
+    icon: https://raw.githubusercontent.com/lipis/flag-icons/5f40463ce1d8731f4e22dcb8acbc715b01573c54/flags/1x1/ng.svg
     include-all: true
-    type: select
-    exclude-filter: (?i)香港|台湾|新加坡|日本|美国|剩余流量|重置剩余|套餐到期|更新订阅|永久地址|大陆访问|群组|欢迎加入
+    type: url-test
+    interval: 300
+    tolerance: 50
+    filter: (?i)尼日利亚|NG
 
   # 全局节点
   - name: GLOBAL
@@ -115,83 +176,7 @@ proxy-groups:
       - 日本节点
       - 美国节点
       - 故障转移
-      - 全局直连
-  ### ⬆⬆⬆分界线⬆⬆⬆ ### 请勿更改
-
-  # 分流节点
-  - name: 常用直连应用
-    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/App_Store.png
-    type: select
-    proxies:
-      - 全局直连
-      - 节点选择
-  - name: 苹果CN
-    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/Apple.png
-    type: select
-    proxies:
-      - 全局直连
-      - 节点选择
-  - name: 云上贵州
-    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/iCloud.png
-    type: select
-    proxies:
-      - 全局直连
-      - 节点选择
-  - name: 私有网络
-    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/Lock.png
-    type: select
-    proxies:
-      - 全局直连
-      - 节点选择
-  - name: 广告拦截
-    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/AdBlack.png
-    type: select
-    proxies:
-      - REJECT
-      - 全局直连
-  - name: 谷歌
-    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/Google_Search.png
-    type: select
-    proxies:
-      - 节点选择
-      - 全局直连
-  - name: 常用代理
-    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/Proxy.png
-    type: select
-    proxies:
-      - 节点选择
-      - 全局直连
-  - name: 常用直连
-    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/Bypass.png
-    type: select
-    proxies:
-      - 全局直连
-      - 节点选择
-  - name: 保留IP
-    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/SSID.png
-    type: select
-    proxies:
-      - 全局直连
-      - 节点选择
-  - name: 大陆IP
-    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/China.png
-    type: select
-    proxies:
-      - 全局直连
-      - 节点选择
-  - name: 电报
-    icon: https://raw.githubusercontent.com/Koolson/Qure/refs/heads/master/IconSet/Color/Telegram.png
-    type: select
-    proxies:
-      - 节点选择
-      - 自动选择
-      - 香港节点
-      - 台湾节点
-      - 新加坡节点
-      - 日本节点
-      - 美国节点
-      - 故障转移
-      - 全局直连
+      - DIRECT
 
 # 规则集
 rule-providers:
@@ -289,8 +274,8 @@ rule-providers:
 # 规则
 rules:
   - RULE-SET,applications,常用直连应用
-  - DOMAIN,clash.razord.top,全局直连
-  - DOMAIN,yacd.haishan.me,全局直连
+  - DOMAIN,clash.razord.top,DIRECT
+  - DOMAIN,yacd.haishan.me,DIRECT
   - RULE-SET,private,私有网络
   - RULE-SET,reject,广告拦截
   - RULE-SET,icloud,云上贵州
@@ -301,18 +286,6 @@ rules:
   - RULE-SET,lancidr,保留IP
   - RULE-SET,cncidr,大陆IP
   - RULE-SET,telegramcidr,电报
-  - GEOIP,LAN,全局直连
-  - GEOIP,CN,全局直连
-  - MATCH,Final
-
-### ⬇⬇⬇分界线⬇⬇⬇ ### 以下为移动端添加
-# GeoData模式
-geodata-mode: true
-geox-url:
-  geoip: "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat"
-  geosite: "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat"
-geo-auto-update: true
-geo-update-interval: 24
-
-# 局域网连接
-allow-lan: false
+  - GEOIP,LAN,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,节点选择
