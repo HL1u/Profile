@@ -69,10 +69,10 @@ rule-providers:
   OpenAi:
     type: http
     behavior: classical
-    format: yaml
+    format: list
     interval: 86400
     url: https://raw.githubusercontent.com/EAlyce/conf/refs/heads/main/Rule/OpenAI.list
-    path: ./ruleset/OpenAi.yaml
+    path: ./ruleset/OpenAi.list
 
   GlobalMedia:
     type: http
