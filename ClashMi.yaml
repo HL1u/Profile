@@ -71,7 +71,7 @@ rule-providers:
     behavior: classical
     format: yaml
     interval: 86400
-    url: https://gist.githubusercontent.com/ddgksf2013/cb4121e8b5c5d865cc949cb8120320c4/raw/Ai.yaml
+    url: https://raw.githubusercontent.com/EAlyce/conf/refs/heads/main/Rule/OpenAI.list
     path: ./ruleset/OpenAi.yaml
 
   GlobalMedia:
