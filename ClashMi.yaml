@@ -1,9 +1,9 @@
 #====================================================
 # @ConfigName        ClashMi Config
 # @Author            @HL
-# @UpdateTime        2025/11/09
+# @UpdateTime        2025/11/20
 # @Function          支持手动选择、自动测速、广告屏蔽、兜底分流、按国家分组节点
-# @ConfigVersion     1.0.2
+# @ConfigVersion     1.0.3
 #====================================================
 
 mixed-port: 7891
