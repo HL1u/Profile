@@ -1,0 +1,4 @@
+https://raw.githubusercontent.com/Cats-Team/AdRules/main/adrules.list
+
+[Country-Masaiki]="https://github.com/Masaiki/GeoIP2-CN/raw/release/Country.mmdb"
+[GeoLite2-ASN-P3TERX]="https://github.com/P3TERX/GeoLite.mmdb/releases/latest/download/GeoLite2-ASN.mmdb"
